@@ -180,6 +180,29 @@ export default function App() {
   const [isCompareOpen, setIsCompareOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
+  // Discreet admin panel shortcuts: Ctrl+Shift+A or Alt+A or URL ?admin=true / #admin
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (((e.ctrlKey || e.metaKey || e.altKey) && (e.key === 'a' || e.key === 'A') && e.shiftKey) || (e.altKey && (e.key === 'a' || e.key === 'A'))) {
+        e.preventDefault();
+        setIsAdminOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Check URL params (?admin=1 or #admin)
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get('admin') === '1' || searchParams.get('admin') === 'true' || window.location.hash === '#admin') {
+        setIsAdminOpen(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Cart State
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 

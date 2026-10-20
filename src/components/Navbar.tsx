@@ -152,15 +152,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   اردو
                 </button>
               </div>
-
-              {/* Admin Studio Link */}
-              <button
-                onClick={openAdmin}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-[11px] transition-colors shadow-2xs"
-              >
-                <Edit3 className="w-3 h-3" />
-                <span>{isUrdu ? 'ایڈمن پینل' : 'Admin Studio'}</span>
-              </button>
             </div>
           </div>
         </div>
@@ -550,21 +541,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ))}
                 </div>
               </div>
-
-              {/* Quick Pages */}
-              <div className="pt-3 border-t border-slate-200 space-y-1.5">
-                <button
-                  onClick={() => {
-                    setIsSidebarOpen(false);
-                    openAdmin();
-                  }}
-                  className="w-full py-2.5 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-2"
-                >
-                  <Edit3 className="w-4 h-4" />
-                  <span>Open WordPress Admin Studio</span>
-                </button>
-              </div>
-
             </div>
           </aside>
         </div>

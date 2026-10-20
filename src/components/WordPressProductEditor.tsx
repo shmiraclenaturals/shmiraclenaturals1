@@ -26,6 +26,7 @@ import {
   Settings,
   Plus,
   Globe,
+  X,
 } from 'lucide-react';
 
 export interface WPProductFormValues {
@@ -51,6 +52,7 @@ interface WordPressProductEditorProps {
   onAddCategory?: (newCat: StoreCategoryItem) => void;
   onUploadImageFile: (file: File) => Promise<string>;
   onNavigateTab?: (tab: 'live-website' | 'all-products' | 'add-product' | 'categories' | 'brand-videos') => void;
+  onCloseAdmin?: () => void;
 }
 
 export const WordPressProductEditor: React.FC<WordPressProductEditorProps> = ({
@@ -63,6 +65,7 @@ export const WordPressProductEditor: React.FC<WordPressProductEditorProps> = ({
   onAddCategory,
   onUploadImageFile,
   onNavigateTab,
+  onCloseAdmin,
 }) => {
   const [values, setValues] = useState<WPProductFormValues>(initialValues);
   const [editorTab, setEditorTab] = useState<'visual' | 'text'>('visual');
@@ -181,6 +184,15 @@ export const WordPressProductEditor: React.FC<WordPressProductEditorProps> = ({
 
         <div className="flex items-center gap-3">
           <span>Howdy, Admin</span>
+          <button
+            type="button"
+            onClick={onCloseAdmin || onCancel}
+            className="px-2.5 py-1 rounded bg-rose-700 hover:bg-rose-600 text-white font-bold text-[11px] flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
+            title="Hide Admin Panel"
+          >
+            <X className="w-3 h-3" />
+            <span>Hide Admin (بند کریں)</span>
+          </button>
         </div>
       </div>
 

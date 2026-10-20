@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, MessageCircle, ArrowUp, MapPin, Clock, Edit3 } from 'lucide-react';
+import { Mail, Phone, MessageCircle, ArrowUp, MapPin, Clock, Edit3, Lock } from 'lucide-react';
 import { CurrentPageView } from './Navbar';
 import { SiteConfig, DEFAULT_SITE_CONFIG } from '../data/siteConfig';
 
@@ -63,16 +63,6 @@ export const Footer: React.FC<FooterProps> = ({
               <MessageCircle className="w-4 h-4" />
               <span>{isUrdu ? 'واٹس ایپ پر آرڈر کریں (0330-1285975)' : 'Order on WhatsApp (0330-1285975)'}</span>
             </a>
-
-            {onOpenAdmin && (
-              <button
-                onClick={onOpenAdmin}
-                className="px-5 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer"
-              >
-                <Edit3 className="w-4 h-4 text-[#fab528]" />
-                <span>{isUrdu ? 'ایڈمن پینل (Admin Studio)' : 'Open Admin Studio'}</span>
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -290,9 +280,21 @@ export const Footer: React.FC<FooterProps> = ({
       ===================================================================== */}
       <div className="bg-[#f5f6f8] border-t border-slate-200 py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-          <p>
-            {siteConfig.footerCopyright}
-          </p>
+          <div className="flex items-center gap-3">
+            <p>
+              {siteConfig.footerCopyright}
+            </p>
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                title="Admin Studio (Ctrl + Shift + A)"
+                className="opacity-25 hover:opacity-100 transition-opacity text-[11px] text-slate-400 hover:text-slate-700 flex items-center gap-1 cursor-pointer select-none"
+              >
+                <Lock className="w-2.5 h-2.5" />
+                <span>Admin</span>
+              </button>
+            )}
+          </div>
 
           <button
             onClick={scrollToTop}

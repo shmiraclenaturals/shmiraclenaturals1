@@ -141,22 +141,8 @@ export const BrandStory: React.FC<BrandStoryProps> = ({
             </div>
           </div>
 
-          {/* Right Admin Video Upload Button + Audio Visualizer */}
+          {/* Audio Visualizer */}
           <div className="flex flex-wrap items-center gap-3">
-            {onOpenAdmin && (
-              <button
-                onClick={onOpenAdmin}
-                className="px-4 py-2.5 rounded-xl bg-[#fab528] hover:bg-amber-400 text-slate-950 font-extrabold text-xs flex items-center gap-2 transition-all shadow-xs cursor-pointer"
-              >
-                <Video className="w-4 h-4" />
-                <span>
-                  {isUrdu
-                    ? '🎬 پارٹ 1، 2، 3 ویڈیوز لگائیں (ایڈمن پینل)'
-                    : '🎬 Manage Part 1, 2, 3 Videos (Admin)'}
-                </span>
-              </button>
-            )}
-
             <div className="flex items-center gap-1.5 h-10 px-4 py-2 bg-slate-100 rounded-xl border border-slate-200">
               {[40, 75, 30, 90, 60, 85, 45, 95, 50, 70, 35, 80].map((height, i) => (
                 <div

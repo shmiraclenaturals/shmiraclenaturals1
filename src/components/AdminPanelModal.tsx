@@ -597,7 +597,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
             </button>
           </div>
 
-          {/* Right: Save & Exit to Live Site */}
+          {/* Right: Save & Exit to Live Site + Hide Admin button */}
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -608,7 +608,17 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
               className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
             >
               <Eye className="w-4 h-4" />
-              <span>✅ سیو کریں اور لائیو ویب سائٹ دیکھیں</span>
+              <span>✅ سیو کریں اور لائیو دیکھیں</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-3.5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+              title="Hide Admin Panel"
+            >
+              <X className="w-4 h-4" />
+              <span>✖ بند کریں (Hide)</span>
             </button>
           </div>
         </div>
@@ -721,6 +731,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
             setEditingItem(null);
             setActiveTab(tab);
           }}
+          onCloseAdmin={onClose}
         />
       )}
 
@@ -2016,6 +2027,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
           onAddCategory={onAddCategory}
           onUploadImageFile={processUploadedImageFile}
           onNavigateTab={(tab) => setActiveTab(tab)}
+          onCloseAdmin={onClose}
         />
       )}
 
