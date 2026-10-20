@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var origDebug = console.debug;
+        var origError = console.error;
+        var origWarn = console.warn;
+        function isViteWsMsg(args) {
+          if (!args || !args.length) return false;
+          var first = String(args[0] || '');
+          return (
+            first.indexOf('[vite]') !== -1 ||
+            first.indexOf('WebSocket closed without opened') !== -1 ||
+            first.indexOf('failed to connect to websocket') !== -1
+          );
+        }
+        console.debug = function () {
+          if (isViteWsMsg(arguments)) return;
+          return origDebug.apply(console, arguments);
+        };
+        console.error = function () {
+          if (isViteWsMsg(arguments)) return;
+          return origError.apply(console, arguments);
+        };
+        console.warn = function () {
+          if (isViteWsMsg(arguments)) return;
+          return origWarn.apply(console, arguments);
+        };
+
+        var OrigWebSocket = window.WebSocket;
+        if (OrigWebSocket) {
+          var PatchedWebSocket = function (url, protocols) {
+            var protoStr = Array.isArray(protocols) ? protocols.join(',') : String(protocols || '');
+            if (protoStr.indexOf('vite-hmr') !== -1 || protoStr.indexOf('vite-ping') !== -1) {
+              var dummy = new EventTarget();
+              dummy.url = String(url || '');
+              dummy.readyState = 1;
+              dummy.protocol = protoStr;
+              dummy.extensions = '';
+              dummy.bufferedAmount = 0;
+              dummy.binaryType = 'blob';
+              dummy.send = function () {};
+              dummy.close = function () {
+                dummy.readyState = 3;
+              };
+              setTimeout(function () {
+                var evt = new Event('open');
+                if (typeof dummy.onopen === 'function') dummy.onopen(evt);
+                dummy.dispatchEvent(evt);
+              }, 0);
+              return dummy;
+            }
+            return protocols !== undefined
+              ? new OrigWebSocket(url, protocols)
+              : new OrigWebSocket(url);
+          };
+          PatchedWebSocket.prototype = OrigWebSocket.prototype;
+          PatchedWebSocket.CONNECTING = OrigWebSocket.CONNECTING;
+          PatchedWebSocket.OPEN = OrigWebSocket.OPEN;
+          PatchedWebSocket.CLOSING = OrigWebSocket.CLOSING;
+          PatchedWebSocket.CLOSED = OrigWebSocket.CLOSED;
+          window.WebSocket = PatchedWebSocket;
+        }
+
+        window.addEventListener(
+          'unhandledrejection',
+          function (event) {
+            var reason = (event.reason && event.reason.message) || String(event.reason || '');
+            if (
+              reason.indexOf('WebSocket') !== -1 ||
+              reason.indexOf('websocket') !== -1 ||
+              reason.indexOf('[vite]') !== -1
+            ) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+          },
+          true
+        );
+      })();
+    </script>
+    <title>SH Miracle Naturals & Organic Soaps | Pure Herbal Skincare</title>
+    <meta name="description" content="100% pure herbal & organic handmade soaps, skincare & haircare store with instant WhatsApp ordering, AI skin consultant, and interactive catalog." />
+    <meta property="og:title" content="SH Miracle Naturals & Organic Soaps | Pure Herbal Skincare" />
+    <meta property="og:description" content="100% pure herbal & organic handmade soaps, skincare & haircare store with instant WhatsApp ordering, AI skin consultant, and interactive catalog." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400..700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#faf8f5] text-stone-800 antialiased font-sans selection:bg-emerald-200 selection:text-emerald-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

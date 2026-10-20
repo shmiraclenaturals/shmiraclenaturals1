@@ -1,0 +1,8 @@
+{
+  "name": "SH Miracle Naturals & Organic Soaps",
+  "description": "100% pure herbal & organic handmade soaps, skincare & haircare store with instant WhatsApp ordering, AI skin consultant, and interactive catalog.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
